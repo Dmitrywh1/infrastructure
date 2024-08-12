@@ -1,0 +1,29 @@
+#CI
+stages:
+- validate
+- lint
+- plan
+- apply
+
+variables:
+  TF_compute_instance_dir: "compute_instance"
+  TF_vpc_dir: "vpc"
+  TF_bucket_dir: "bucket"
+  TF_VAR_cloud_id: $CLOUD_ID   
+  TF_VAR_folder_id: $FOLDER_ID  
+  TF_VAR_authorized_key: $AUTHORIZED_KEY  
+  TF_VAR_access_key: $ACCESS_KEY
+  TF_VAR_secret_key: $SECRET_KEY
+  TF_CLI_CONFIG_FILE: $TF_CLI_CONFIG_FILE
+  TF_VAR_ssh_public_key: $SSH_PUB
+
+image:
+  name: hashicorp/terraform:latest
+  entrypoint:
+    - '/usr/bin/env'
+    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+
+include:
+  - 'compute_instance/.compute_instance.gitlab-ci.yml'
+  - 'vpc/.vpc.gitlab-ci.yml'
+  - 'bucket/.bucket.gitlab-ci.yml'

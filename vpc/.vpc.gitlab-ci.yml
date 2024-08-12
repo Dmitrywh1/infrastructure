@@ -1,0 +1,51 @@
+.prepare_tf_config_vpc:
+  before_script:
+    - cd $TF_vpc_dir
+    - mkdir -p /opt/terraform
+    - echo "$PROVIDER_INSTALLATION" >> $TF_CLI_CONFIG_FILE
+    - terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"
+  tags:
+    - docker
+  rules:
+    - changes:
+        - $TF_vpc_dir/**
+
+validate_vpc:
+  stage: validate
+  extends: .prepare_tf_config_vpc
+  script:
+    - terraform validate
+
+lint_vpc:
+  stage: lint
+  image:
+    name: ghcr.io/terraform-linters/tflint:v0.45.0
+    entrypoint: 
+      - '/usr/bin/env'
+      - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+  before_script:
+    - cd $TF_vpc_dir
+  script:
+    - tflint -f compact
+  tags:
+    - docker
+  rules:
+    - changes:
+        - $TF_vpc_dir/**
+
+plan_vpc:
+  stage: plan
+  extends: .prepare_tf_config_vpc
+  script:
+    - terraform plan -out=tfplan
+  artifacts:
+    paths:
+      - $TF_vpc_dir/tfplan
+
+apply_vpc:
+  stage: apply
+  extends: .prepare_tf_config_vpc
+  script:
+    - terraform apply -auto-approve tfplan
+  when: manual
+  

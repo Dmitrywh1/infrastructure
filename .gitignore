@@ -1,0 +1,9 @@
+/bucket/*.tfvars
+/bucket/*.hcl
+/bucket/.terraform
+/compute_instance/*.tfvars
+/compute_instance/*.hcl
+/compute_instance/.terraform
+/vpc/*.tfvars
+/vpc/*.hcl
+/vpc/.terraform

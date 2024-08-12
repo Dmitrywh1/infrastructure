@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin http://89.169.148.93/morgot/terraform.git
+git remote add origin http://89.169.133.235/morgot/terraform.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](http://89.169.148.93/morgot/terraform/-/settings/integrations)
+- [ ] [Set up project integrations](http://89.169.133.235/morgot/terraform/-/settings/integrations)
 
 ## Collaborate with your team
 

@@ -1,0 +1,52 @@
+.prepare_tf_config_compute_instance:
+  before_script:
+    - cd $TF_compute_instance_dir
+    - mkdir -p /opt/terraform
+    - echo "$PROVIDER_INSTALLATION" >> $TF_CLI_CONFIG_FILE
+    - terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"
+  tags:
+    - docker
+  rules:
+    - changes:
+        - $TF_compute_instance_dir/**
+
+validate_compute_instance:
+  stage: validate
+  extends: .prepare_tf_config_compute_instance
+  script:
+    - terraform validate
+
+lint_compute_instance:
+  stage: lint
+  image:
+    name: ghcr.io/terraform-linters/tflint:v0.45.0
+    entrypoint: 
+      - '/usr/bin/env'
+      - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+  before_script:
+    - cd $TF_compute_instance_dir
+    - pwd
+  script:
+    - tflint -f compact
+  tags:
+    - docker
+  rules:
+    - changes:
+        - $TF_compute_instance_dir/**
+
+plan_compute_instance:
+  stage: plan
+  extends: .prepare_tf_config_compute_instance
+  script:
+    - terraform plan -out=tfplan
+  artifacts:
+    paths:
+      - $TF_compute_instance_dir/tfplan
+
+apply_compute_instance:
+  stage: apply
+  extends: .prepare_tf_config_compute_instance
+  script:
+    - terraform apply -auto-approve tfplan
+  when: manual
+  
