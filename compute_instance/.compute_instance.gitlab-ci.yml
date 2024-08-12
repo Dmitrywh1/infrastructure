@@ -49,4 +49,3 @@ apply_compute_instance:
   script:
     - terraform apply -auto-approve tfplan
   when: manual
-  
