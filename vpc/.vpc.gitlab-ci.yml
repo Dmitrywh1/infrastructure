@@ -49,3 +49,9 @@ apply_vpc:
     - terraform apply -auto-approve tfplan
   when: manual
   
+destroy_vpc:
+  stage: destroy
+  extends: .prepare_tf_config_vpc
+  script:
+    - terraform destroy -auto-approve 
+  when: manual

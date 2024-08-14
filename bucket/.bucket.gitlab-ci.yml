@@ -48,3 +48,10 @@ apply_bucket:
   script:
     - terraform apply -auto-approve tfplan
   when: manual
+
+destroy_bucket:
+  stage: destroy
+  extends: .prepare_tf_config_bucket
+  script:
+    - terraform destroy -auto-approve 
+  when: manual

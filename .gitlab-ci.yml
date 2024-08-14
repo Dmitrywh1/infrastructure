@@ -4,6 +4,7 @@ stages:
 - lint
 - plan
 - apply
+- destroy
 
 variables:
   TF_compute_instance_dir: "compute_instance"
