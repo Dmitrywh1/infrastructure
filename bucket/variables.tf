@@ -27,7 +27,7 @@ variable "storage" {
   }))
   default = {
     bucket = {
-      sa_name        = "tf-storage-sa"
+      sa_name        = "tf-storage-sa_account"
       sa_role        = "editor"
       bucket_name    = "morgotq-tfstate"
       bucket_size    = 1048576
