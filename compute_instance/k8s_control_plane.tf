@@ -1,8 +1,9 @@
 resource "yandex_compute_instance" "controlplane" {
-  name        = var.vm.k8s_control_plane.name
+  count       = 1
+  name        = "control-plane-${count.index + 1}"
   platform_id = var.vm.k8s_control_plane.platform_id
 
-  zone = data.terraform_remote_state.vpc.outputs.subnet["zone"][0]
+  zone = data.terraform_remote_state.vpc.outputs.subnet["zone"][count.index]
 
   resources {
     cores         = var.vm.k8s_control_plane.cores
@@ -21,7 +22,7 @@ resource "yandex_compute_instance" "controlplane" {
   }
 
   network_interface {
-    subnet_id = data.terraform_remote_state.vpc.outputs.subnet.id[0]
+    subnet_id = data.terraform_remote_state.vpc.outputs.subnet.id[count.index]
     nat       = var.vm.k8s_control_plane.nat_enable
   }
 
