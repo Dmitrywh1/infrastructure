@@ -1,16 +1,16 @@
-resource "yandex_iam_service_account" "sa" {
+resource "yandex_iam_service_account" "sa_acc" {
   folder_id = var.folder_id
   name      = var.storage.bucket.sa_name
 }
 
-resource "yandex_resourcemanager_folder_iam_member" "sa-editor" {
+resource "yandex_resourcemanager_folder_iam_member" "sa_acc" {
   folder_id = var.folder_id
   role      = var.storage.bucket.sa_role
-  member    = "serviceAccount:${yandex_iam_service_account.sa.id}"
+  member    = "serviceAccount:${yandex_iam_service_account.sa_acc.id}"
 }
 
 resource "yandex_iam_service_account_static_access_key" "sa-static-key" {
-  service_account_id = yandex_iam_service_account.sa.id
+  service_account_id = yandex_iam_service_account.sa_acc.id
   description        = "static access key for object storage"
 }
 
