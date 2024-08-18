@@ -11,7 +11,7 @@ terraform {
     endpoints = {
       s3 = "https://storage.yandexcloud.net"
     }
-    bucket = "morgotq-tfstate"
+    bucket = "morgotq-tfstate-bucket"
     region = "ru-central1"
     key    = "terraform.tfstate"
 
