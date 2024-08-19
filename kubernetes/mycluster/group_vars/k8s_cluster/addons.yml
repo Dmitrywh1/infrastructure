@@ -99,9 +99,9 @@ rbd_provisioner_enabled: false
 # Nginx ingress controller deployment
 ingress_nginx_enabled: true
 ingress_nginx_host_network: true
-ingress_publish_status_address: ""
+# ingress_publish_status_address: ""
 ingress_nginx_nodeselector:
-  node-role.kubernetes.io/ingress: "true"
+  node-role.kubernetes.io/ingress: ""
 ingress_nginx_tolerations:
   - key: "node-role.kubernetes.io/ingress"
     operator: "Exists"
