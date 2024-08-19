@@ -3,7 +3,7 @@ data "yandex_compute_image" "ubuntu" {
 }
 
 resource "yandex_compute_instance" "worker" {
-  count       = 2
+  count       = 1
   name        = "worker-${count.index + 1}"
   platform_id = var.vm.worker.platform_id
 
