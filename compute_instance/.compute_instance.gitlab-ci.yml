@@ -64,6 +64,11 @@ destroy_compute_instance:
     - terraform destroy -auto-approve 
   when: manual
 
-include:
-  - project: 'morgot/kubernetes'
-    file: '.install-kubespray.gitlab-ci.yml'
+downstream_job:
+  stage: install k8s-cluster with kubespray
+  trigger:
+    project: 'morgot/kubernetes'
+    branch: main
+    strategy: depend
+  dependencies:
+    - apply_compute_instance
