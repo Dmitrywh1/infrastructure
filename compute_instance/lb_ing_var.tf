@@ -18,7 +18,7 @@ variable "instance_group" {
       delete_protecton     = false
       platform_id          = "standard-v2"
       memory               = 4
-      cores                = 3
+      cores                = 2
       boot_disk_mode       = "READ_WRITE"
       boot_disk_size       = 50
       network_settings     = "STANDARD"
