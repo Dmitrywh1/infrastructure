@@ -11,6 +11,7 @@ deploy_kubespray:
     - cd kubespray
   script:
     - cat inventory/mycluster/hosts.yaml
+    - cat inventory/mycluster/group_vars/k8s_cluster/addons.yml
     - ansible-playbook -i inventory/mycluster/hosts.yaml cluster.yml -b
   when: manual
   needs:
