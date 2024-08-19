@@ -10,6 +10,7 @@ deploy_kubespray:
     - cp -r mycluster kubespray/inventory
     - cd kubespray
   script:
+    - cat inventory/mycluster/hosts.yaml
     - ansible-playbook -i inventory/mycluster/hosts.yaml cluster.yml -b
   when: manual
   needs:
