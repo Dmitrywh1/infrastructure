@@ -1,19 +1,8 @@
-resource "yandex_iam_service_account" "sa_ig" {
-  folder_id = var.folder_id
-  name      = var.sa_ig.name
-}
-
-resource "yandex_resourcemanager_folder_iam_member" "sa_ig" {
-  folder_id = var.folder_id
-  role      = var.sa_ig.role
-  member    = "serviceAccount:${yandex_iam_service_account.sa_ig.id}"
-}
-
 resource "yandex_compute_instance_group" "ingress_k8s" {
   count               = 1
   name                = "ingress-${count.index + 1}"
   folder_id           = var.folder_id
-  service_account_id  = yandex_iam_service_account.sa_ig.id
+  service_account_id  = var.instance_group.k8s_ingress.sa_id
   deletion_protection = var.instance_group.k8s_ingress.delete_protecton
   instance_template {
     platform_id = var.instance_group.k8s_ingress.platform_id
