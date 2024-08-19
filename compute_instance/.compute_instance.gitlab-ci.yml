@@ -63,12 +63,3 @@ destroy_compute_instance:
   script:
     - terraform destroy -auto-approve 
   when: manual
-
-downstream_job:
-  stage: install k8s-cluster with kubespray
-  trigger:
-    project: 'morgot/kubernetes'
-    branch: main
-    strategy: depend
-  dependencies:
-    - apply_compute_instance
