@@ -51,7 +51,7 @@ apply_compute_instance:
     - terraform apply -auto-approve tfplan
     - pwd
     - ls
-  when: manual
+  #when: manual
   needs: [plan_compute_instance]
   artifacts:
     paths:

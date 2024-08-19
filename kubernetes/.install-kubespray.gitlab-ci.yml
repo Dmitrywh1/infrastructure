@@ -13,7 +13,7 @@ deploy_kubespray:
     - cat inventory/mycluster/hosts.yaml
     - cat inventory/mycluster/group_vars/k8s_cluster/addons.yml
     - ansible-playbook -i inventory/mycluster/hosts.yaml cluster.yml -b
-  when: manual
+  # when: manual
   needs:
     - apply_compute_instance
   tags:
