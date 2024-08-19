@@ -53,7 +53,9 @@ apply_compute_instance:
     - ls
   when: manual
   needs: [plan_compute_instance]
-
+  artifacts:
+    paths:
+      - $TF_compute_instance_dir/hosts.yaml
 
 destroy_compute_instance:
   stage: destroy
