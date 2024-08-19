@@ -1,6 +1,3 @@
-stages:
-  - install k8s-cluster with kubespray
-
 .prepare_kubespray:
   image: cr.yandex/crpb6jem7gml01esa824/ansible-dind:0.1
   script:
