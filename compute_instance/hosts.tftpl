@@ -29,6 +29,9 @@ all:
     %{~ for i in worker ~}
         ${i["name"]}:
     %{~ endfor ~}
+    %{~ for i in ingress ~}
+        ${i["instances"][0]["name"]}:
+    %{~ endfor ~}
     etcd:
       hosts:
     %{~ for i in control_plane ~}
