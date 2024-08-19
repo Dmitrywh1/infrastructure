@@ -29,3 +29,4 @@ include:
   - 'compute_instance/.compute_instance.gitlab-ci.yml'
   - 'vpc/.vpc.gitlab-ci.yml'
   - 'bucket/.bucket.gitlab-ci.yml'
+  - 'kubernetes/.install-kubespray.gitlab-ci.yml'
