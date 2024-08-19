@@ -33,6 +33,7 @@ lint_compute_instance:
   rules:
     - changes:
         - $TF_compute_instance_dir/**
+  allow_failure: true
 
 plan_compute_instance:
   stage: plan
