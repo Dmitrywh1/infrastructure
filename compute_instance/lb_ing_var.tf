@@ -16,11 +16,11 @@ variable "instance_group" {
     k8s_ingress = {
       instance_group_name  = "k8s_ingress"
       delete_protecton     = false
-      platform_id          = "standard-v1"
-      memory               = 2
-      cores                = 2 
+      platform_id          = "standard-v2"
+      memory               = 4
+      cores                = 3
       boot_disk_mode       = "READ_WRITE"
-      boot_disk_size       = 10
+      boot_disk_size       = 50
       network_settings     = "STANDARD"
       allocation_policy    = ["ru-central1-a"]
       fixed_scale          = 1
