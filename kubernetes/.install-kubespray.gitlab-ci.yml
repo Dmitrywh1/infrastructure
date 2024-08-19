@@ -1,0 +1,24 @@
+stages:
+  - install k8s-cluster with kubespray
+
+.prepare_kubespray:
+  image: cr.yandex/crpb6jem7gml01esa824/ansible-dind:0.1
+  script:
+    - cp compute_instance/hosts.yaml kubernetes/mycluster
+    - cd kubernetes
+    - git clone https://github.com/kubernetes-sigs/kubespray.git 
+    - cp -r mycluster kubespray/inventory
+  tags:
+    - docker
+
+deploy_kubespray:
+  stage: install k8s-cluster with kubespray
+  extends: .prepare_kubespray
+  variables:
+    ANSIBLE_CONFIG: "ansible.cfg"
+  image: cr.yandex/crpb6jem7gml01esa824/ansible-dind:0.1
+  before_script:
+    - cd kubespray
+  script:
+    - ansible-playbook -i inventory/mycluster/hosts.yaml cluster.yml -b
+  when: manual
