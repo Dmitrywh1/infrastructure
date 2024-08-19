@@ -5,6 +5,7 @@ stages:
 - plan
 - apply
 - destroy
+- install k8s-cluster with kubespray
 
 variables:
   TF_compute_instance_dir: "compute_instance"
