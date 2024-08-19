@@ -50,6 +50,7 @@ apply_compute_instance:
   script:
     - terraform apply -auto-approve tfplan
   when: manual
+  needs: [plan_compute_instance]
 
 destroy_compute_instance:
   stage: destroy
