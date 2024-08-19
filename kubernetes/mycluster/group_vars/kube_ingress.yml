@@ -1,4 +1,4 @@
 node_labels:
-  node.kubernetes.io/ingress: "true"
+  node.kubernetes.io/ingress: ""
 node_taints:
   - "node.kubernetes.io/ingress=:NoSchedule"
