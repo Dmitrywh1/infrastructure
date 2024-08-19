@@ -34,11 +34,6 @@ all:
     %{~ for i in control_plane ~}
         ${i["name"]}:
     %{~ endfor ~}
-    kube-ingress:
-      hosts:
-    %{~ for i in ingress ~}
-        ${i["instances"][0]["name"]}:
-    %{~ endfor ~}
     k8s_cluster:
       children:
         kube_control_plane:
