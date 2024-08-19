@@ -1,17 +1,21 @@
 all:
   hosts:
     control-plane-1:
-      ansible_host:10.0.1.10
-      ip:10.0.1.10
-      access_ip:10.0.1.10  
+      ansible_host: 10.0.1.24
+      ip: 10.0.1.24
+      access_ip: 10.0.1.24
     worker-1:
-      ansible_host:10.0.1.32
-      ip:10.0.1.32
-      access_ip:10.0.1.32
+      ansible_host: 10.0.1.10
+      ip: 10.0.1.10
+      access_ip: 10.0.1.10
     worker-2:
-      ansible_host:10.0.2.7
-      ip:10.0.2.7
-      access_ip:10.0.2.7
+      ansible_host: 10.0.2.8
+      ip: 10.0.2.8
+      access_ip: 10.0.2.8
+    cl1u5i3na4qn8r3bfhtu-upub:
+      ansible_host: 10.0.1.35
+      ip: 10.0.1.35
+      access_ip: 10.0.1.35
   children:
     kube_control_plane:
       hosts:
@@ -23,6 +27,9 @@ all:
     etcd:
       hosts:
         control-plane-1:
+    kube-ingress:
+      hosts:
+        cl1u5i3na4qn8r3bfhtu-upub:
     k8s_cluster:
       children:
         kube_control_plane:

@@ -2,18 +2,22 @@ all:
   hosts:
   %{~ for i in control_plane ~}
     ${i["name"]}:
-      ansible_host:${i["network_interface"][0]["ip_address"]}
-      ip:${i["network_interface"][0]["ip_address"]}
-      access_ip:${i["network_interface"][0]["ip_address"]}
-%{~ endfor ~}
-  
+      ansible_host: ${i["network_interface"][0]["ip_address"]}
+      ip: ${i["network_interface"][0]["ip_address"]}
+      access_ip: ${i["network_interface"][0]["ip_address"]}
+  %{~ endfor ~}
   %{~ for i in worker ~}
     ${i["name"]}:
-      ansible_host:${i["network_interface"][0]["ip_address"]}
-      ip:${i["network_interface"][0]["ip_address"]}
-      access_ip:${i["network_interface"][0]["ip_address"]}
-
-%{~ endfor ~}
+      ansible_host: ${i["network_interface"][0]["ip_address"]}
+      ip: ${i["network_interface"][0]["ip_address"]}
+      access_ip: ${i["network_interface"][0]["ip_address"]}
+  %{~ endfor ~}
+  %{~ for i in ingress ~}
+    ${i["instances"][0]["name"]}:
+      ansible_host: ${i["instances"][0]["network_interface"][0]["ip_address"]}
+      ip: ${i["instances"][0]["network_interface"][0]["ip_address"]}
+      access_ip: ${i["instances"][0]["network_interface"][0]["ip_address"]}
+  %{~ endfor ~}
   children:
     kube_control_plane:
       hosts:
@@ -29,6 +33,11 @@ all:
       hosts:
     %{~ for i in control_plane ~}
         ${i["name"]}:
+    %{~ endfor ~}
+    kube-ingress:
+      hosts:
+    %{~ for i in ingress ~}
+        ${i["instances"][0]["name"]}:
     %{~ endfor ~}
     k8s_cluster:
       children:

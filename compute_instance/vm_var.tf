@@ -51,7 +51,7 @@ variable "vm" {
       cores         = 2
       memory        = 4
       core_fraction = 5
-      nat_enable    = true
+      nat_enable    = false
       preemptible   = true
       disk_size     = 60
     }
@@ -61,7 +61,7 @@ variable "vm" {
       cores         = 2
       memory        = 4
       core_fraction = 5
-      nat_enable    = true
+      nat_enable    = false
       preemptible   = true
       disk_size     = 50
     }
