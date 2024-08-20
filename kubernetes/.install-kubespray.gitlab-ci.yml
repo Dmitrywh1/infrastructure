@@ -26,6 +26,7 @@ scrape_kubeconfig:
   image: cr.yandex/crpb6jem7gml01esa824/ansible-dind:0.1
   before_script:
     - export IP_CONTROL_PLANE=$(cat compute_instance/ip_control_plane.cfg) 
+    - echo $IP_CONTROL_PLANE
     - curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
     - chmod +x ./kubectl
     - mv ./kubectl /usr/local/bin/kubectl
