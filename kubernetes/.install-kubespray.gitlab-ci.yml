@@ -32,6 +32,9 @@ scrape_kubeconfig:
     - export KUBECONFIG=~/.kube/config
     - kubectl config view
     - cat ~/.kube/config
+    - kubectl config set-cluster cluster.local --server=https://10.0.1.29:6443
+    - kubectl config view
+    - cat ~/.kube/config
   script:
     - kubectl get pod -A
   tags:
