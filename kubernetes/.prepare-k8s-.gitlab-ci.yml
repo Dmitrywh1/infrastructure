@@ -37,7 +37,7 @@ install_grafana_ingress:
   stage: prepare k8s
   extends: .prepare_kubectl
   script:
-    - kubectl apply -f manifests/ingress-grafana.yml
+    - kubectl apply -f kubernetes/manifests/ingress-grafana.yml
   needs:
     - install_monitoring
 
@@ -63,7 +63,7 @@ dev:
           --docker-password="${CI_REGISTRY_PASSWORD}"
         echo "Registry has been installed."
       fi
-    - kubectl apply -f manifests/rq-namespace-$NAMESPACE.yaml -n $NAMESPACE
+    - kubectl apply -f kubernetes/manifests/rq-namespace-$NAMESPACE.yaml -n $NAMESPACE
 
 prod:
   stage: prepare k8s
@@ -87,4 +87,4 @@ prod:
           --docker-password="${CI_REGISTRY_PASSWORD}"
         echo "Registry has been installed."
       fi
-    - kubectl apply -f manifests/rq-namespace-$NAMESPACE.yaml -n $NAMESPACE
+    - kubectl apply -f kubernetes/manifests/rq-namespace-$NAMESPACE.yaml -n $NAMESPACE
