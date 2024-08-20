@@ -25,8 +25,7 @@ scrape_kubeconfig:
   stage: install k8s-cluster with kubespray
   image: cr.yandex/crpb6jem7gml01esa824/ansible-dind:0.1
   before_script:
-    - ls compute_instance/
-    - cat compute_instance/kubectl.sh
+    - sed -i 's/\r$//' compute_instance/kubectl.sh
     - bash compute_instance/kubectl.sh
   script:
     - kubectl get pod -A
