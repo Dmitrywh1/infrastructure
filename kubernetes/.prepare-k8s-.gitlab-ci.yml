@@ -18,9 +18,8 @@ install_monitoring:
   image:
     name: alpine/helm
     entrypoint: [""]
-  extends: .prepare_kubectl
-  # before_script:
-  #   - export KUBECONFIG=$KUBECONFIG
+  before_script:
+    - export KUBECONFIG=./kubeconfig
   script:
     - helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     - helm repo update
@@ -32,6 +31,8 @@ install_monitoring:
       fi
   tags:
     - docker
+  needs:
+    - scrape_kubeconfig
 
 install_grafana_ingress:
   stage: prepare k8s
