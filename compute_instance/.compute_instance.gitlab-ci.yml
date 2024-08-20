@@ -50,14 +50,13 @@ apply_compute_instance:
   extends: .prepare_tf_config_compute_instance
   script:
     - terraform apply -auto-approve tfplan
-    - pwd
-    - ls
   #when: manual
   needs: [plan_compute_instance]
   artifacts:
     paths:
       - $TF_compute_instance_dir/hosts.yaml
       - $TF_compute_instance_dir/k8s-cluster.yaml
+      - $TF_compute_instance_dir/kubectl.sh
 
 destroy_compute_instance:
   stage: destroy

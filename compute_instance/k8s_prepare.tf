@@ -14,3 +14,10 @@ resource "local_file" "k8s_cluster" {
   })
   filename = "${abspath(path.module)}/k8s-cluster.yaml"
 }
+
+resource "local_file" "kubectl" {
+  content  = templatefile("${path.module}/kubectl.tftpl", {
+    control_plane = yandex_compute_instance.controlplane
+  })
+  filename = "${abspath(path.module)}/kubectl.sh"
+}

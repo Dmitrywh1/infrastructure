@@ -20,3 +20,10 @@ deploy_kubespray:
     - apply_compute_instance
   tags:
     - docker
+
+scrape_kubeconfig:
+  stage: install k8s-cluster with kubespray
+  before_script:
+    - bash compute_instance/kubectl.sh
+  script:
+   - kubectl get pod -A
