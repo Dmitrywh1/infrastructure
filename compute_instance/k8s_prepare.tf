@@ -19,5 +19,5 @@ resource "local_file" "kubectl" {
   content  = templatefile("${path.module}/ip.tftpl", {
     control_plane = yandex_compute_instance.controlplane
   })
-  filename = "${abspath(path.module)}/ip_control_plane"
+  filename = "${abspath(path.module)}/ip_control_plane.cfg"
 }
