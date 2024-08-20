@@ -45,7 +45,7 @@ variable "lb" {
       port              = 80
       ip_version        = "ipv4"
       health_check_name = "tcp"
-      health_check_port = 20
+      health_check_port = 22
     }
   }
 }
