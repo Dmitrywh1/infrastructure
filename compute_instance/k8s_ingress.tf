@@ -81,9 +81,6 @@ resource "yandex_lb_network_load_balancer" "lb-k8s" {
 
     healthcheck {
       name = var.lb.network.health_check_name
-      http_options {
-        port = var.lb.network.health_check_port
-      }
     }
   }
 }
