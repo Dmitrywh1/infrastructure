@@ -16,8 +16,8 @@ resource "local_file" "k8s_cluster" {
 }
 
 resource "local_file" "kubectl" {
-  content  = templatefile("${path.module}/kubectl.tftpl", {
+  content  = templatefile("${path.module}/ip.tftpl", {
     control_plane = yandex_compute_instance.controlplane
   })
-  filename = "${abspath(path.module)}/kubectl.sh"
+  filename = "${abspath(path.module)}/ip_control_plane"
 }
