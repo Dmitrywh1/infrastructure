@@ -1,0 +1,7 @@
+supplementary_addresses_in_ssl_keys:
+  %{~ for i in control_plane ~}
+  - ${i["network_interface"][0]["ip_address"]}
+  %{~ endfor ~}
+  %{~ for i in ingress ~}
+  - ${i["instances"][0]["network_interface"][0]["ip_address"]}
+  %{~ endfor ~}

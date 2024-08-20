@@ -5,6 +5,7 @@ deploy_kubespray:
   image: cr.yandex/crpb6jem7gml01esa824/ansible-dind:0.1
   before_script:
     - cp compute_instance/hosts.yaml kubernetes/mycluster
+    - cat compute_instance/k8s-cluster.yaml >> kubernetes/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
     - cd kubernetes
     - git clone https://github.com/kubernetes-sigs/kubespray.git 
     - cp -r mycluster kubespray/inventory
@@ -12,6 +13,7 @@ deploy_kubespray:
   script:
     - cat inventory/mycluster/hosts.yaml
     - cat inventory/mycluster/group_vars/k8s_cluster/addons.yml
+    - cat inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
     - ansible-playbook -i inventory/mycluster/hosts.yaml cluster.yml -b
   # when: manual
   needs:

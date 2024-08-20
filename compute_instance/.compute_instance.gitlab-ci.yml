@@ -43,6 +43,7 @@ plan_compute_instance:
   artifacts:
     paths:
       - $TF_compute_instance_dir/tfplan
+  needs: [validate_compute_instance]
 
 apply_compute_instance:
   stage: apply
@@ -56,6 +57,7 @@ apply_compute_instance:
   artifacts:
     paths:
       - $TF_compute_instance_dir/hosts.yaml
+      - $TF_compute_instance_dir/k8s-cluster.yaml
 
 destroy_compute_instance:
   stage: destroy

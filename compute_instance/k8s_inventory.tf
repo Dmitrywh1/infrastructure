@@ -6,3 +6,11 @@ resource "local_file" "k8s_inventory" {
   })
   filename = "${abspath(path.module)}/hosts.yaml"
 }
+
+resource "local_file" "k8s_cluster" {
+  content  = templatefile("${path.module}/k8s-cluster.tftpl", {
+    control_plane = yandex_compute_instance.controlplane,
+    ingress       = yandex_compute_instance_group.ingress_k8s
+  })
+  filename = "${abspath(path.module)}/k8s-cluster.yaml"
+}

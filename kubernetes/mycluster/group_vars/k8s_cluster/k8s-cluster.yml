@@ -7,11 +7,6 @@
 kube_config_dir: /etc/kubernetes
 kube_script_dir: "{{ bin_dir }}/kubernetes-scripts"
 kube_manifest_dir: "{{ kube_config_dir }}/manifests"
-supplementary_addresses_in_ssl_keys:
-  - 89.169.130.206
-  - 10.0.1.32
-  - 51.250.45.71
-  - 89.169.146.185
 # This is where all the cert scripts and certs will be located
 kube_cert_dir: "{{ kube_config_dir }}/ssl"
 
