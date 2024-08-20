@@ -22,7 +22,7 @@ ssh -o StrictHostKeyChecking=no -i $ssh_key ubuntu@$control_plane_ip 'sudo cat /
 echo "kubeconfig move from control plane to local dir"
 
 kubectl config set-cluster cluster.local --server=https://"$control_plane_ip":6443 
-kubectl config view | grep server
+kubectl config view
 echo "ip conrol plane is setup"
 cat ~/.kube/config
 kubectl get nodes
