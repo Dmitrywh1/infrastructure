@@ -18,7 +18,7 @@ echo "kubectl installed successfully"
 
 mkdir -p ~/.kube
 
-ssh -i $ssh_key ubuntu@$control_plane_ip 'sudo cat /etc/kubernetes/admin.conf' > "$kube_config"
+ssh -o StrictHostKeyChecking=no -i $ssh_key ubuntu@$control_plane_ip 'sudo cat /etc/kubernetes/admin.conf' > "$kube_config"
 echo "kubeconfig move from control plane to local dir"
 
 kubectl config set-cluster cluster.local --server=https://"$control_plane_ip":6443 
