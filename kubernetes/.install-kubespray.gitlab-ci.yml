@@ -34,6 +34,7 @@ scrape_kubeconfig:
     - mkdir -p ~/.kube
     - ssh -o StrictHostKeyChecking=no -i /opt/kubespray/vm ubuntu@$IP_CONTROL_PLANE 'sudo cat /etc/kubernetes/admin.conf' > ~/.kube/config
     - kubectl config set-cluster cluster.local --server=https://$IP_CONTROL_PLANE:6443
+    - export KUBECONFIG=~/.kube/config
   script:
     - kubectl get pod
   tags:
