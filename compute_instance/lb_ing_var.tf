@@ -44,8 +44,8 @@ variable "lb" {
       listener_name     = "nlb-k8s"
       port              = 80
       ip_version        = "ipv4"
-      health_check_name = "http"
-      health_check_port = 80
+      health_check_name = "tcp"
+      health_check_port = 20
     }
   }
 }
