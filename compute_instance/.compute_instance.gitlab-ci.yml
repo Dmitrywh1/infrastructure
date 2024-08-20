@@ -56,7 +56,7 @@ apply_compute_instance:
     paths:
       - $TF_compute_instance_dir/hosts.yaml
       - $TF_compute_instance_dir/k8s-cluster.yaml
-      - $TF_compute_instance_dir/kubectl.sh
+      - $TF_compute_instance_dir/ip_control_plane.cfg
 
 destroy_compute_instance:
   stage: destroy
@@ -64,4 +64,3 @@ destroy_compute_instance:
   script:
     - terraform destroy -auto-approve 
   when: manual
-  
