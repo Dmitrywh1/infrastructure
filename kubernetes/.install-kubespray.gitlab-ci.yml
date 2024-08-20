@@ -26,8 +26,6 @@ scrape_kubeconfig:
   image: cr.yandex/crpb6jem7gml01esa824/ansible-dind:0.1
   before_script:
     - export IP_CONTROL_PLANE=$(cat compute_instance/ip_control_plane.cfg | xargs | sed 's/\r//g')
-    - echo "$IP_CONTROL_PLANE" | cat -A
-    - echo $IP_CONTROL_PLANE
     - export KUBECONFIG=~/.kube/config
     - curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
     - chmod +x ./kubectl
@@ -36,9 +34,12 @@ scrape_kubeconfig:
     - ssh -o StrictHostKeyChecking=no -i /opt/kubespray/vm ubuntu@$IP_CONTROL_PLANE 'sudo cat /etc/kubernetes/admin.conf' > $KUBECONFIG
     - kubectl config set-cluster cluster.local --server=https://$IP_CONTROL_PLANE:6443
   script:
-    - kubectl get pod
-  tags:
-    - docker
+    - kubectl get nodes
   needs:
     - apply_compute_instance
     # - deploy_kubespray
+  tags:
+    - docker
+  artifacts:
+    paths:
+      - ~/.kube/config

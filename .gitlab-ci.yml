@@ -6,6 +6,7 @@ stages:
 - apply
 - destroy
 - install k8s-cluster with kubespray
+- prepare k8s
 
 variables:
   TF_compute_instance_dir: "compute_instance"
@@ -30,3 +31,4 @@ include:
   - 'vpc/.vpc.gitlab-ci.yml'
   - 'bucket/.bucket.gitlab-ci.yml'
   - 'kubernetes/.install-kubespray.gitlab-ci.yml'
+  - 'kubernetes/.prepare-k8s-.gitlab-ci.yml'
