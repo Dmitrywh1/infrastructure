@@ -30,7 +30,7 @@ scrape_kubeconfig:
     - chmod +x ./kubectl
     - mv ./kubectl /usr/local/bin/kubectl
     - mkdir -p ~/.kube
-    - ssh -o StrictHostKeyChecking=no -i $ssh_key ubuntu@$control_plane_ip 'sudo cat /etc/kubernetes/admin.conf' > ~/.kube/config
+    - ssh -o StrictHostKeyChecking=no -i /opt/kubespray/vm ubuntu@$IP_CONTROL_PLANE 'sudo cat /etc/kubernetes/admin.conf' > ~/.kube/config
     - kubectl config set-cluster cluster.local --server=https://$IP_CONTROL_PLANE:6443
   script:
     - kubectl get pod

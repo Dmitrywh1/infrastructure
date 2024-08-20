@@ -64,3 +64,4 @@ destroy_compute_instance:
   script:
     - terraform destroy -auto-approve 
   when: manual
+  
