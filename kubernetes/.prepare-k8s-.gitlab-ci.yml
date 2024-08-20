@@ -1,0 +1,92 @@
+variables:
+  NAMESPACE_development: dev
+  NAMESPACE_production: prod
+
+.prepare_kubectl:
+  image:
+    name: bitnami/kubectl
+    entrypoint: [""]
+  before_script:
+    - export KUBECONFIG=$(cat ~/.kube/config)
+  tags:
+    - docker
+  needs:
+    - scrape_kubeconfig
+
+install_monitoring:
+  stage: prepare k8s
+  image:
+    name: alpine/helm
+    entrypoint: [""]
+  extends: .prepare_kubectl
+  before_script:
+    - export KUBECONFIG=$KUBECONFIG
+  script:
+    - helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+    - helm repo update
+    - |
+      if helm ls --namespace monitoring | grep -q kube-prometheus-stack; then
+        echo "Release 'kube-prometheus-stack' already exists. Skipping installation."
+      else
+        helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack --namespace monitoring --create-namespace
+      fi
+  needs:
+    - .prepare_kubectl
+  tags:
+    - docker
+
+install_grafana_ingress:
+  stage: prepare k8s
+  extends: .prepare_kubectl
+  script:
+    - kubectl apply -f manifests/ingress-grafana.yml
+  needs:
+    - install_monitoring
+
+dev:
+  stage: prepare k8s
+  extends: .prepare_kubectl
+  variables:
+    NAMESPACE: dev
+  script:
+    - |
+      if ! kubectl get ns "${NAMESPACE}" > /dev/null 2>&1; then
+          kubectl create ns "${NAMESPACE}"
+        else
+          echo "Namespace ${NAMESPACE} already exists, skipping creation."
+        fi
+    - |
+      if kubectl get secret yandex-registry -n "${NAMESPACE}" >/dev/null 2>&1; then
+        echo "Secret 'yandex-registry' already exist. Skipping step."
+      else
+        kubectl create secret docker-registry yandex-registry -n "${NAMESPACE}" \
+          --docker-server="${CI_REGISTRY}/${CI_REGISTRY_ID}" \
+          --docker-username="${CI_REGISTRY_USER}" \
+          --docker-password="${CI_REGISTRY_PASSWORD}"
+        echo "Registry has been installed."
+      fi
+    - kubectl apply -f manifests/rq-namespace-$NAMESPACE.yaml -n $NAMESPACE
+
+prod:
+  stage: prepare k8s
+  extends: .prepare_kubectl
+  variables:
+    NAMESPACE: prod
+  script:
+    - |
+      if ! kubectl get ns "${NAMESPACE}" > /dev/null 2>&1; then
+          kubectl create ns "${NAMESPACE}"
+        else
+          echo "Namespace ${NAMESPACE} already exists, skipping creation."
+        fi
+    - |
+      if kubectl get secret yandex-registry -n "${NAMESPACE}" >/dev/null 2>&1; then
+        echo "Secret 'yandex-registry' already exist. Skipping step."
+      else
+        kubectl create secret docker-registry yandex-registry -n "${NAMESPACE}" \
+          --docker-server="${CI_REGISTRY}/${CI_REGISTRY_ID}" \
+          --docker-username="${CI_REGISTRY_USER}" \
+          --docker-password="${CI_REGISTRY_PASSWORD}"
+        echo "Registry has been installed."
+      fi
+    - kubectl apply -f manifests/rq-namespace-$NAMESPACE.yaml -n $NAMESPACE
