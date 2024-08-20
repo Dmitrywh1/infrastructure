@@ -26,6 +26,7 @@ scrape_kubeconfig:
   image: cr.yandex/crpb6jem7gml01esa824/ansible-dind:0.1
   before_script:
     - sed -i 's/\r$//' compute_instance/kubectl.sh
+    - cat compute_instance/kubectl.sh
     - bash compute_instance/kubectl.sh
   script:
     - kubectl get pod -A
