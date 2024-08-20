@@ -35,6 +35,7 @@ scrape_kubeconfig:
     - kubectl config set-cluster cluster.local --server=https://$IP_CONTROL_PLANE:6443
   script:
     - kubectl get nodes
+    - cp ~/.kube/config kubeconfig
   needs:
     - apply_compute_instance
     # - deploy_kubespray
@@ -42,4 +43,4 @@ scrape_kubeconfig:
     - docker
   artifacts:
     paths:
-      - ~/.kube/config
+      - kubeconfig
