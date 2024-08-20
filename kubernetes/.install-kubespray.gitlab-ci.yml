@@ -29,6 +29,8 @@ scrape_kubeconfig:
     - sed -i 's/\r$//' compute_instance/kubectl.sh
     - cat compute_instance/kubectl.sh
     - bash compute_instance/kubectl.sh
+    - kubectl config view
+    - cat ~/.kube/config
   script:
     - kubectl get pod -A
   tags:
