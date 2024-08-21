@@ -39,6 +39,7 @@ install_grafana_ingress:
   stage: prepare k8s
   extends: .prepare_kubectl
   script:
+    - ls
     - kubectl apply -f kubernetes/manifests/ingress-grafana.yml
   needs:
     - install_monitoring
