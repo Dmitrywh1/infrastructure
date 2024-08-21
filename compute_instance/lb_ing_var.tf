@@ -49,11 +49,3 @@ variable "lb" {
     }
   }
 }
-
-variable "sa_ig" {
-  type        = map(string)
-  default     = {
-    name   = "sa-ig"
-    role   = "admin"
-  }
-}
