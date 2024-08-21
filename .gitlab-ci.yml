@@ -18,8 +18,6 @@ variables:
   TF_VAR_secret_key: $SECRET_KEY
   TF_CLI_CONFIG_FILE: $TF_CLI_CONFIG_FILE
   TF_VAR_ssh_public_key: $SSH_PUB
-  TF_VAR_worker_count: 1
-  TF_VAR_controlplane_count: 1
 
 image:
   name: hashicorp/terraform:latest

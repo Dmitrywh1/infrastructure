@@ -1,3 +1,7 @@
+variable "ingress_count"{
+  type = number
+}
+
 variable "instance_group" {
   type = map(object({
     instance_group_name  = string
@@ -9,7 +13,6 @@ variable "instance_group" {
     boot_disk_size       = number
     network_settings     = string
     allocation_policy    = list(string)
-    fixed_scale          = number
     sa_id                = string
   }))
   default = {
@@ -23,7 +26,6 @@ variable "instance_group" {
       boot_disk_size       = 50
       network_settings     = "STANDARD"
       allocation_policy    = ["ru-central1-a"]
-      fixed_scale          = 1
       sa_id                = "ajeuja7fffuf40etotat"
     }
   }

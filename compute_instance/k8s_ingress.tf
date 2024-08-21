@@ -32,7 +32,7 @@ resource "yandex_compute_instance_group" "ingress_k8s" {
 
   scale_policy {
     fixed_scale {
-      size = var.instance_group.k8s_ingress.fixed_scale
+      size = var.ingress_count
     }
   }
 
