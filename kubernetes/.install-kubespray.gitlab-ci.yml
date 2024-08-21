@@ -1,25 +1,25 @@
-deploy_kubespray:
-  stage: install k8s-cluster with kubespray
-  variables:
-    ANSIBLE_CONFIG: "kubernetes/ansible.cfg"
-  image: cr.yandex/crpb6jem7gml01esa824/ansible-dind:0.1
-  before_script:
-    - cp compute_instance/hosts.yaml kubernetes/mycluster
-    - cat compute_instance/k8s-cluster.yaml | sed 's/$/\n/' | sed '/^$/d' >> kubernetes/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
-    - cd kubernetes
-    - git clone https://github.com/kubernetes-sigs/kubespray.git 
-    - cp -r mycluster kubespray/inventory
-    - cd kubespray
-  script:
-    - cat inventory/mycluster/hosts.yaml
-    - cat inventory/mycluster/group_vars/k8s_cluster/addons.yml
-    - cat inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
-    - ansible-playbook -i inventory/mycluster/hosts.yaml cluster.yml -b
-  # when: manual
-  needs:
-    - apply_compute_instance
-  tags:
-    - docker
+# deploy_kubespray:
+#   stage: install k8s-cluster with kubespray
+#   variables:
+#     ANSIBLE_CONFIG: "kubernetes/ansible.cfg"
+#   image: cr.yandex/crpb6jem7gml01esa824/ansible-dind:0.1
+#   before_script:
+#     - cp compute_instance/hosts.yaml kubernetes/mycluster
+#     - cat compute_instance/k8s-cluster.yaml | sed 's/$/\n/' | sed '/^$/d' >> kubernetes/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
+#     - cd kubernetes
+#     - git clone https://github.com/kubernetes-sigs/kubespray.git 
+#     - cp -r mycluster kubespray/inventory
+#     - cd kubespray
+#   script:
+#     - cat inventory/mycluster/hosts.yaml
+#     - cat inventory/mycluster/group_vars/k8s_cluster/addons.yml
+#     - cat inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
+#     - ansible-playbook -i inventory/mycluster/hosts.yaml cluster.yml -b
+#   # when: manual
+#   needs:
+#     - apply_compute_instance
+#   tags:
+#     - docker
 
 scrape_kubeconfig:
   stage: install k8s-cluster with kubespray
@@ -38,7 +38,7 @@ scrape_kubeconfig:
     - cp ~/.kube/config kubeconfig
   needs:
     - apply_compute_instance
-    - deploy_kubespray
+    # - deploy_kubespray
   tags:
     - docker
   artifacts:
