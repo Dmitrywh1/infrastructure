@@ -47,17 +47,6 @@ resource "yandex_compute_instance_group" "ingress_k8s" {
     max_deleting    = 2
   }
 
-#   health_check {
-#   interval = 5
-#   timeout = 2
-#   unhealthy_threshold = 2
-#   healthy_threshold = 2
-
-#   tcp_options {
-#     port = 80
-#   }
-# }
-
   load_balancer {
     target_group_name        = "ingress-k8s"
     target_group_description = "Group for ingress k8s"

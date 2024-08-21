@@ -33,6 +33,14 @@ variable "authorized_key" {
   type        = string
 }
 
+variable "worker_count"{
+  type        = number
+}
+
+variable "controlplane_count"{
+  type        = number
+}
+
 variable "vm" {
   type = map(object({
     name          = string
@@ -61,16 +69,6 @@ variable "vm" {
       cores         = 2
       memory        = 4
       core_fraction = 5
-      nat_enable    = true
-      preemptible   = true
-      disk_size     = 50
-    }
-    managed = {
-      name          = "managed"
-      platform_id   = "standard-v2"
-      cores         = 8
-      memory        = 8
-      core_fraction = 50
       nat_enable    = true
       preemptible   = true
       disk_size     = 50

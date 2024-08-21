@@ -1,5 +1,5 @@
 resource "yandex_compute_instance" "controlplane" {
-  count       = 1
+  count       = var.controlplane_count
   name        = "control-plane-${count.index + 1}"
   platform_id = var.vm.k8s_control_plane.platform_id
 
