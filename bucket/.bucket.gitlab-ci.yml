@@ -17,7 +17,7 @@ validate_bucket:
     - terraform validate
 
 lint_bucket:
-  stage: lint
+  stage: validate
   image:
     name: ghcr.io/terraform-linters/tflint:v0.45.0
     entrypoint: 
@@ -41,6 +41,7 @@ plan_bucket:
   artifacts:
     paths:
       - $TF_bucket_dir/tfplan
+  allow_failure: false
 
 apply_bucket:
   stage: apply
@@ -48,6 +49,8 @@ apply_bucket:
   script:
     - terraform apply -auto-approve tfplan
   when: manual
+  needs:
+    - plan_bucket
 
 destroy_bucket:
   stage: destroy
@@ -55,3 +58,5 @@ destroy_bucket:
   script:
     - terraform destroy -auto-approve 
   when: manual
+  needs:
+    - plan_bucket

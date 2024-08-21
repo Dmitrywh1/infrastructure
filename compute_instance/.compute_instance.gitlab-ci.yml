@@ -17,7 +17,7 @@ validate_compute_instance:
     - terraform validate
 
 lint_compute_instance:
-  stage: lint
+  stage: validate
   image:
     name: ghcr.io/terraform-linters/tflint:v0.45.0
     entrypoint: 
@@ -64,3 +64,4 @@ destroy_compute_instance:
   script:
     - terraform destroy -auto-approve 
   when: manual
+  needs: [plan_compute_instance]

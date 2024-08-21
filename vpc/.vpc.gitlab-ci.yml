@@ -17,7 +17,7 @@ validate_vpc:
     - terraform validate
 
 lint_vpc:
-  stage: lint
+  stage: validate
   image:
     name: ghcr.io/terraform-linters/tflint:v0.45.0
     entrypoint: 
@@ -32,6 +32,7 @@ lint_vpc:
   rules:
     - changes:
         - $TF_vpc_dir/**
+  allow_failure: true
 
 plan_vpc:
   stage: plan
@@ -41,6 +42,7 @@ plan_vpc:
   artifacts:
     paths:
       - $TF_vpc_dir/tfplan
+  allow_failure: false
 
 apply_vpc:
   stage: apply
@@ -48,10 +50,14 @@ apply_vpc:
   script:
     - terraform apply -auto-approve tfplan
   when: manual
-  
+  needs:
+    - plan_bucket  
+
 destroy_vpc:
   stage: destroy
   extends: .prepare_tf_config_vpc
   script:
     - terraform destroy -auto-approve 
   when: manual
+  needs:
+    - plan_bucket

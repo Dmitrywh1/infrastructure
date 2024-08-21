@@ -1,7 +1,6 @@
 #CI
 stages:
 - validate
-- lint
 - plan
 - apply
 - destroy
