@@ -77,7 +77,7 @@ resource "yandex_lb_network_load_balancer" "lb-k8s" {
   }
 
   attached_target_group {
-    target_group_id = yandex_compute_instance_group.ingress_k8s[0].load_balancer.0.target_group_id
+    target_group_id = yandex_compute_instance_group.ingress_k8s[0].load_balancer[0].target_group_id
 
     healthcheck {
       name = var.lb.network.health_check_name
