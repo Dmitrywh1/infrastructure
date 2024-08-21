@@ -22,7 +22,6 @@ install_monitoring:
     - export KUBECONFIG=./kubeconfig
   script:
     - cat ./kubeconfig
-    - kubectl config view
     - helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     - helm repo update
     - |
