@@ -1,7 +1,7 @@
 .prepare_tf_config_compute_instance:
   variables:
-    TF_worker_count: 1
-    TF_controlplane_count: 1
+    TF_worker_count: "1"
+    TF_controlplane_count: "1"
   before_script:
     - cd $TF_compute_instance_dir
     - mkdir -p /opt/terraform
