@@ -43,7 +43,6 @@ plan_compute_instance:
   artifacts:
     paths:
       - $TF_compute_instance_dir/tfplan
-  needs: [validate_compute_instance]
 
 apply_compute_instance:
   stage: apply
