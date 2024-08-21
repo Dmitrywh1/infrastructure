@@ -1,13 +1,13 @@
 terraform {
   required_providers {
     yandex = {
-      source  = "yandex-cloud/yandex"
+      source = "yandex-cloud/yandex"
       version = "0.124.0"
     }
     local = {
       source  = "hashicorp/local"
-      version = "2.0"
-    }
+      version = "2.0" 
+  }
   }
   required_version = ">=1.5"
 
@@ -23,5 +23,13 @@ terraform {
     skip_credentials_validation = true
     skip_requesting_account_id  = true 
     skip_s3_checksum            = true
+
   }
+}
+
+provider "yandex" {
+  cloud_id                 = var.cloud_id
+  folder_id                = var.folder_id
+  zone                     = var.default_zone
+  service_account_key_file = var.authorized_key #file("../authorized_key.json")
 }
