@@ -1,7 +1,3 @@
-variables:
-  NAMESPACE_development: dev
-  NAMESPACE_production: prod
-
 .prepare_kubectl:
   image:
     name: bitnami/kubectl
@@ -39,11 +35,11 @@ install_grafana_ingress:
   stage: prepare k8s
   extends: .prepare_kubectl
   script:
-    - ls
+    - kubectl config view
     - kubectl apply -f kubernetes/manifests/ingress-grafana.yml
   needs:
     - install_monitoring
-
+    - scrape_kubeconfig
 dev:
   stage: prepare k8s
   extends: .prepare_kubectl
