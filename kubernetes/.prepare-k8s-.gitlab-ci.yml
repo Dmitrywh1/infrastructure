@@ -17,7 +17,6 @@ install_monitoring:
   before_script:
     - export KUBECONFIG=./kubeconfig
   script:
-    - cat ./kubeconfig
     - helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     - helm repo update
     - |
@@ -35,7 +34,6 @@ install_grafana_ingress:
   stage: prepare k8s
   extends: .prepare_kubectl
   script:
-    - kubectl config view
     - kubectl apply -f kubernetes/manifests/ingress-grafana.yml
   needs:
     - install_monitoring
