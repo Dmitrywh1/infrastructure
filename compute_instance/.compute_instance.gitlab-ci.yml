@@ -1,8 +1,8 @@
 .prepare_tf_config_compute_instance:
   variables:
-    TF_VAR_worker_count: 1
+    TF_VAR_worker_count: 2
     TF_VAR_controlplane_count: 1
-    TF_VAR_ingress_count: 1
+    TF_VAR_ingress_count: 2
   before_script:
     - cd $TF_compute_instance_dir
     - mkdir -p /opt/terraform
