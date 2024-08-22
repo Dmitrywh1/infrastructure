@@ -4,6 +4,5 @@ supplementary_addresses_in_ssl_keys:
   %{~ endfor ~}
   %{~ for i in ingress ~}
   - ${i["instances"][0]["network_interface"][0]["ip_address"]}
-  - ${i["instances"][0]["network_interface"][0]["nat_ip_address"]}
   %{~ endfor ~}
   - 10.0.1.33
