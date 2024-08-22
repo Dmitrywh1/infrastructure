@@ -31,3 +31,7 @@ variable "subnets" {
   }))
   default = []
 }
+
+variable "folder_id" {
+  type        = string
+}

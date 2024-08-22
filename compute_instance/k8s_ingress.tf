@@ -19,7 +19,7 @@ resource "yandex_compute_instance_group" "ingress_k8s" {
     }
     network_interface {
       subnet_ids = [data.terraform_remote_state.vpc.outputs.subnet.id[count.index]]
-      nat        = true
+      nat        = false
     }
     metadata = {
       ssh-keys           = "ubuntu:${var.ssh_public_key}"
