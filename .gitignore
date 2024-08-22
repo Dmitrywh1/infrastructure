@@ -6,6 +6,7 @@
 /compute_instance/.terraform
 /compute_instance/*.yaml
 /compute_instance/*.sh
+/compute_instance/*.cfg
 /vpc/*.tfvars
 /vpc/*.hcl
 /vpc/.terraform
